@@ -12,10 +12,11 @@ from PIL import Image as pil_image       # for operations on images
 import keras
 print(keras.__version__)
 
+
 import tensorflow
 print(tensorflow.__version__)
-from tensorflow.keras.applications.imagenet_utils import preprocess_input, decode_predictions
-from tensorflow.keras.models import Model,load_model
+from keras.applications.imagenet_utils import preprocess_input, decode_predictions
+from keras.models import Model,load_model
 from keras.preprocessing import image
 
 
@@ -24,22 +25,19 @@ from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
 
+
 app = Flask(__name__)
-
-from tensorflow.keras.metrics import categorical_accuracy, top_k_categorical_accuracy
-
-def top_2_accuracy(y_true, y_pred):
-    return top_k_categorical_accuracy(y_true, y_pred, k=2)
+Model= load_model('model (10).keras')
 
 
 lesion_classes_dict ={
-    0: 'Melanocytic nevi',
-    1: 'Melanoma-Cancerous',
-    2: 'Benign keratosis-like lesions',
-    3: 'Basal cell carcinoma-Cancerous',
-    4: 'Actinic keratoses',
-    5: 'Vascular lesions',
-    6: 'Dermatofibroma'
+    0: 'akiec, Actinic Keratoses (Solar Keratoses) or intraepithelial Carcinoma (Bowen’s disease)',
+    1: 'bcc, Basal Cell Carcinoma',
+    2: 'bkl, Benign Keratosis',
+    3: 'df, Dermatofibroma',
+    4: 'mel, Melanoma',
+    5: 'nv, Melanocytic Nevi',
+    6: 'vasc, Vascular skin lesion'
 }
 
 def model_predict(img_path, Model):
@@ -48,7 +46,7 @@ def model_predict(img_path, Model):
     #x=np.asarray(img.tolist())
     x=image.img_to_array(img)
     x=np.expand_dims(x, axis=0)
-    # Be careful how your tarined model deals with the input
+    # Be careful how your trained model deals with the input
     # otherwise, it won't make correct prediction!
     
     # x=preprocess_input(x,mode='caffe')
