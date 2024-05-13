@@ -1,32 +1,22 @@
-from __future__ import division,print_function
+from __future__ import division, print_function
 import sys
 import os
 import glob
 import re
 import numpy as np
 from PIL import Image as pil_image       # for operations on images
-
-
-#KERAS
-
 import keras
-print(keras.__version__)
-
-
 import tensorflow
-print(tensorflow.__version__)
 from keras.applications.imagenet_utils import preprocess_input, decode_predictions
-from keras.models import Model,load_model
+from keras.models import Model, load_model
 from keras.preprocessing import image
-
-
-#flask utils
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
+from flask import jsonify
 
 app = Flask(__name__)
-Model= load_model('model.h5')
+Model = load_model('model.h5')
 
 lesion_classes_dict ={
     0: 'akiec, Actinic Keratoses (Solar Keratoses) or intraepithelial Carcinoma (Bowen’s disease)',
@@ -37,8 +27,6 @@ lesion_classes_dict ={
     5: 'nv, Melanocytic Nevi',
     6: 'vasc, Vascular skin lesion'
 }
-
-
 
 def model_predict(img_path, Model):
     img = image.load_img(img_path, target_size=(224, 224))
@@ -60,7 +48,8 @@ def upload():
         basepath = os.path.dirname(__file__)
         file_path = os.path.join(basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
-	print("file_path")
+        print("file_path")  
+
         preds = model_predict(file_path, Model)
         
         # Get the top two predictions and their probabilities
@@ -68,13 +57,14 @@ def upload():
         top_classes = [lesion_classes_dict[i] for i in top_indices]
         top_probabilities = preds[0][top_indices]
 
-        # Prepare the result string
-        result = ""
+        # Prepare the result dictionary
+        result = {}
         for label, prob in zip(top_classes, top_probabilities):
-            result += f"{label}: {prob}\n"
+            result[label] = float(prob)
         
-        return result 
+        return jsonify(result)
     return None
 
 if __name__ == '__main__':
     app.run(debug=True)
+
