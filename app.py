@@ -25,10 +25,8 @@ from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
 
-
 app = Flask(__name__)
-Model= load_model('model (10).keras')
-
+Model= load_model('model.h5')
 
 lesion_classes_dict ={
     0: 'akiec, Actinic Keratoses (Solar Keratoses) or intraepithelial Carcinoma (Bowen’s disease)',
@@ -40,46 +38,41 @@ lesion_classes_dict ={
     6: 'vasc, Vascular skin lesion'
 }
 
+
+
 def model_predict(img_path, Model):
     img = image.load_img(img_path, target_size=(224, 224))
-    #img = np.asarray(pil_image.open('img').resize((120,90)))
-    #x=np.asarray(img.tolist())
-    x=image.img_to_array(img)
-    x=np.expand_dims(x, axis=0)
-    # Be careful how your trained model deals with the input
-    # otherwise, it won't make correct prediction!
-    
-    # x=preprocess_input(x,mode='caffe')
-    preds=Model.predict(x)
-    return preds
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = tensorflow.keras.applications.mobilenet_v2.preprocess_input(x)
 
+    preds = Model.predict(x)
+    return preds
 
 @app.route('/', methods=['GET'])
 def index():
-    #Main page
     return render_template('index.html')
 
-
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/predict', methods=['POST'])
 def upload():
     if request.method == 'POST':
-        # Get the file from post request
         f = request.files['file']
-
-        # Save the file to ./uploads
         basepath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basepath, 'uploads', secure_filename(f.filename))
+        file_path = os.path.join(basepath, 'uploads', secure_filename(f.filename))
         f.save(file_path)
-
-        # Make prediction
+	print("file_path")
         preds = model_predict(file_path, Model)
+        
+        # Get the top two predictions and their probabilities
+        top_indices = np.argsort(preds)[0][-2:][::-1]
+        top_classes = [lesion_classes_dict[i] for i in top_indices]
+        top_probabilities = preds[0][top_indices]
 
-        # Process your result for human readable
-        pred_class = preds.argmax(axis=-1)
-        #pred_class = decode_predictions(preds, top=1)
-        pr = lesion_classes_dict[pred_class[0]]
-        result = str(pr)
+        # Prepare the result string
+        result = ""
+        for label, prob in zip(top_classes, top_probabilities):
+            result += f"{label}: {prob}\n"
+        
         return result 
     return None
 
