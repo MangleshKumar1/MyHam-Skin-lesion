@@ -16,36 +16,36 @@ The app is able to classify 7 types of skin lesions as described in this paper:
 **bcc - Basal cell carcinoma ** 
 It is a prevalent type of  skin cancer originating in the basal 
 cells of the epidermis, which rarely spreads but can cause 
-significant harm if not addressed.  
+significant harm if not addressed.  <br>
 **akiec– Actinic and intraepithelial Carcinoma (Bowen’s 
 disease) ** 
 Actinic keratosis results from prolonged exposure to 
-sunlight and is more common in individuals over 40 years old. 
+sunlight and is more common in individuals over 40 years old. <br>
 **bkl- Benign keratosis **
 This inclusive category includes seborrheic keratoses, 
 which could be viewed as a condensed form of seborrheic 
-keratoses, alongside lichen-planus-like keratoses. 
+keratoses, alongside lichen-planus-like keratoses. <br>
 **df- Dermatofibroma**   
 Dermatofibromas are benign skin growths that can 
 develop as a response to minor injury or as an allergic reaction. 
 They typically appear as brown lesions with a central area of 
-fibrosis visible under dermatoscopy. 
+fibrosis visible under dermatoscopy. <br>
 **mel - Melanoma**
 Melanoma is a type of cancer originating from 
 melanocytes and can present in various forms. When detected 
-early, it can be treated surgically. 
+early, it can be treated surgically. <br>
 **nv- Melanocytic nevi**  
 Melanocytic nevi, also known as moles, are harmless 
 developments of melanocytes that may manifest in various 
 sizes and configurations. Their appearance can vary 
-significantly under dermatoscopic examination. 
+significantly under dermatoscopic examination. <br>
 **vasc- Vascular skin lesion**  
 Vascular Skin Lesion. Vascular lesions are caused by 
 numerous or enlarged blood vessels beneath the skin, often 
 giving the skin a reddish appearance due to the visible vessels. 
 These lesions come in various sizes and shapes, including 
 broken capillaries and cherry angiomas, and can be treated 
-using different technologies.
+using different technologies.<br>
 
 The HAM10000 Dataset: A Large Collection of Multi-Source Dermatoscopic Images of Common Pigmented Skin Lesions<br>
 https://arxiv.org/abs/1803.10417
