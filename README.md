@@ -12,16 +12,16 @@ This is a prototype can tell patients, doctors and lab technologists the two hig
 
 This app is powered by Artifical Intelligence. My goal for this project was to build an end to end solution - starting with model creation and ending with a live web app. Users are able to submit a picture of a skin lesion and get an instant prediction. 
 
-The app is able to classify 7 types of skin lesions as described in this paper:
-**bcc - Basal cell carcinoma ** 
+The app is able to classify 7 types of skin lesions as described in this paper:<br>
+**bcc - Basal cell carcinoma** 
 It is a prevalent type of  skin cancer originating in the basal 
 cells of the epidermis, which rarely spreads but can cause 
 significant harm if not addressed.  <br>
 **akiec– Actinic and intraepithelial Carcinoma (Bowen’s 
-disease) ** 
+disease)** 
 Actinic keratosis results from prolonged exposure to 
 sunlight and is more common in individuals over 40 years old. <br>
-**bkl- Benign keratosis **
+**bkl- Benign keratosis**
 This inclusive category includes seborrheic keratoses, 
 which could be viewed as a condensed form of seborrheic 
 keratoses, alongside lichen-planus-like keratoses. <br>
