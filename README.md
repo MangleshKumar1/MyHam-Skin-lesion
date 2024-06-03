@@ -29,7 +29,7 @@ The python code to build and train the model is included in the Jupyter notebook
 <hr>
 
 <br>
-**app.py**<br>
+**app.py**  <br>
 This code is a Flask web application that serves a machine learning model for predicting skin lesion types from uploaded images. Here's a breakdown of how it works:<br>
 
 Imports and Initialization: The necessary libraries for image processing, machine learning, and web serving are imported. The Flask application is initialized, and CORS (Cross-Origin Resource Sharing) is enabled to allow requests from any origin.<br><br>
