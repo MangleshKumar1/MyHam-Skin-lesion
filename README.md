@@ -49,5 +49,4 @@ Running the App: The application is set to run in debug mode when the script is 
 In summary, this application allows users to upload images of skin lesions and receive predictions on the lesion types along with their probabilities, leveraging a pre-trained deep learning model.
 
 
-
 All the requirements is given in requirements in requirements.txt file to run the code locally in pc. We need to setup the python in VS code.
