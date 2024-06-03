@@ -27,3 +27,27 @@ The python code to build and train the model is included in the Jupyter notebook
 
 
 <hr>
+
+<br>
+**app.py**
+This code is a Flask web application that serves a machine learning model for predicting skin lesion types from uploaded images. Here's a breakdown of how it works:
+
+Imports and Initialization: The necessary libraries for image processing, machine learning, and web serving are imported. The Flask application is initialized, and CORS (Cross-Origin Resource Sharing) is enabled to allow requests from any origin.
+
+Model Loading: The pre-trained machine learning model (model.h5) is loaded into memory.
+
+Lesion Classes Dictionary: A dictionary mapping the predicted class indices to human-readable lesion descriptions is defined.
+
+Model Prediction Function: The model_predict function processes an input image to the required format (224x224 pixels), preprocesses it using MobileNet V2 preprocessing, and predicts the class probabilities using the loaded model.
+
+Home Route (/): Renders the main HTML page (index.html) when accessed via a GET request.
+
+Prediction Route (/predict): Handles file uploads via POST requests. The uploaded file is saved, and the model_predict function is called to generate predictions. The top two predictions with their probabilities are extracted and returned as a JSON response.
+
+Running the App: The application is set to run in debug mode when the script is executed directly.
+
+In summary, this application allows users to upload images of skin lesions and receive predictions on the lesion types along with their probabilities, leveraging a pre-trained deep learning model.
+
+
+
+All the requirements is given in requirements in requirements.txt file to run the code locally in pc. We need to setup the python in VS code.
